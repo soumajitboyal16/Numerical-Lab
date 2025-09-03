@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<math.h>
+double f(double x) 
+{
+    return x*x*x - 5*x + 1;  
+}
+int main() 
+{
+    double a, b, c, fa, fb, fc;
+    int max_iter, iter = 0;
+    double tol;
+    printf("Enter initial guesses a and b: ");
+    scanf("%lf %lf", &a, &b);
+    printf("Enter tolerance: ");
+    scanf("%lf", &tol);
+    printf("Enter maximum iterations: ");
+    scanf("%d", &max_iter);
+    fa = f(a);
+    fb = f(b);
+    if (fa * fb > 0) 
+	{
+        printf("Invalid interval. f(a) and f(b) must have opposite signs.\n");
+        return 1;
+    }
+    printf("\nIter\t a\t\t b\t\t c\t\t f(c)\n");
+    do 
+	{
+        c = (a * fb - b * fa) / (fb - fa);
+        fc = f(c);
+        printf("%d\t %.6lf\t %.6lf\t %.6lf\t %.6lf\n", iter+1, a, b, c, fc);
+        if (fabs(fc) < tol) 
+		{
+            printf("\nRoot found at x = %.6lf (within tolerance)\n", c);
+            return 0;
+        }
+        if (fa * fc < 0) 
+		{
+            b = c;
+            fb = fc;
+        } 
+		else 
+		{
+            a = c;
+            fa = fc;
+        }
+        iter++;
+    } while (iter < max_iter);
+    printf("\nMethod did not converge within maximum iterations.\n");
+    printf("Approximate root = %.6lf\n", c);
+    return 0;
+}
