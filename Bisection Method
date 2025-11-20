@@ -7,6 +7,7 @@ float f(float x)
 int main() 
 {
     float a,b,x,y1,y2;
+    int i=1;
     printf("Enter the interval (a,b) in which root is: ");
     scanf("%f %f",&a,&b);
     y1=f(a);
@@ -16,14 +17,16 @@ int main()
         printf("No root exists in the given interval.\n");
         return 0;
     }
+printf("Iter\ta\tb\tx\n");
     while (fabs(a-b) >=0.00001) 
 	{
         x=(a+b)/2;
-        printf("a=%f\t b=%f\t x=%f\n",a,b,x);
+        printf("%d\t%.4f\t%.4f\t%.4f\n", i, a, b, x);
         if (f(a)*f(x)<0)
             b=x;
         else
             a=x;
+        i++;
     }
     printf("\nThe root is %f\n",x);
     return 0;
